@@ -1,0 +1,889 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Investigate\_a\_Dataset}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    .
+
+\section{Project: Investigating TMDB movie data and finding interesting
+insights and
+observations.}\label{project-investigating-tmdb-movie-data-and-finding-interesting-insights-and-observations.}
+
+\subsection{Table of Contents}\label{table-of-contents}
+
+Introduction
+
+Data Wrangling
+
+Exploratory Data Analysis
+
+Conclusions
+
+    INTRODUCTION I am using the TMDB movie dataset, which contains around
+10000+ movies, thier popularity, budget,revenue and other information.
+
+The two questions I will be exploring are: 1. The Average runtime of the
+movies 2. Movie release data and its profitability
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{csv}
+          \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{o}{\PYZpc{}} \PY{n}{matplotlib} \PY{n}{inline}
+\end{Verbatim}
+
+
+     \#\# Data Wrangling
+
+After reviewing the dataset I have decided to delete unused data to make
+it easier to analysis the dataset \#\#\# General Properties
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{my\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmdb\PYZhy{}movies.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:}        id    imdb\_id  popularity     budget     revenue  \textbackslash{}
+          0  135397  tt0369610   32.985763  150000000  1513528810   
+          1   76341  tt1392190   28.419936  150000000   378436354   
+          2  262500  tt2908446   13.112507  110000000   295238201   
+          3  140607  tt2488496   11.173104  200000000  2068178225   
+          4  168259  tt2820852    9.335014  190000000  1506249360   
+          
+                           original\_title  \textbackslash{}
+          0                Jurassic World   
+          1            Mad Max: Fury Road   
+          2                     Insurgent   
+          3  Star Wars: The Force Awakens   
+          4                     Furious 7   
+          
+                                                          cast  \textbackslash{}
+          0  Chris Pratt|Bryce Dallas Howard|Irrfan Khan|Vi{\ldots}   
+          1  Tom Hardy|Charlize Theron|Hugh Keays-Byrne|Nic{\ldots}   
+          2  Shailene Woodley|Theo James|Kate Winslet|Ansel{\ldots}   
+          3  Harrison Ford|Mark Hamill|Carrie Fisher|Adam D{\ldots}   
+          4  Vin Diesel|Paul Walker|Jason Statham|Michelle {\ldots}   
+          
+                                                      homepage          director  \textbackslash{}
+          0                      http://www.jurassicworld.com/   Colin Trevorrow   
+          1                        http://www.madmaxmovie.com/     George Miller   
+          2     http://www.thedivergentseries.movie/\#insurgent  Robert Schwentke   
+          3  http://www.starwars.com/films/star-wars-episod{\ldots}       J.J. Abrams   
+          4                           http://www.furious7.com/         James Wan   
+          
+                                   tagline      {\ldots}       \textbackslash{}
+          0              The park is open.      {\ldots}        
+          1             What a Lovely Day.      {\ldots}        
+          2     One Choice Can Destroy You      {\ldots}        
+          3  Every generation has a story.      {\ldots}        
+          4            Vengeance Hits Home      {\ldots}        
+          
+                                                      overview runtime  \textbackslash{}
+          0  Twenty-two years after the events of Jurassic {\ldots}     124   
+          1  An apocalyptic story set in the furthest reach{\ldots}     120   
+          2  Beatrice Prior must confront her inner demons {\ldots}     119   
+          3  Thirty years after defeating the Galactic Empi{\ldots}     136   
+          4  Deckard Shaw seeks revenge against Dominic Tor{\ldots}     137   
+          
+                                                genres  \textbackslash{}
+          0  Action|Adventure|Science Fiction|Thriller   
+          1  Action|Adventure|Science Fiction|Thriller   
+          2         Adventure|Science Fiction|Thriller   
+          3   Action|Adventure|Science Fiction|Fantasy   
+          4                      Action|Crime|Thriller   
+          
+                                          production\_companies release\_date vote\_count  \textbackslash{}
+          0  Universal Studios|Amblin Entertainment|Legenda{\ldots}       6/9/15       5562   
+          1  Village Roadshow Pictures|Kennedy Miller Produ{\ldots}      5/13/15       6185   
+          2  Summit Entertainment|Mandeville Films|Red Wago{\ldots}      3/18/15       2480   
+          3          Lucasfilm|Truenorth Productions|Bad Robot     12/15/15       5292   
+          4  Universal Pictures|Original Film|Media Rights {\ldots}       4/1/15       2947   
+          
+             vote\_average  release\_year    budget\_adj   revenue\_adj  
+          0           6.5          2015  1.379999e+08  1.392446e+09  
+          1           7.1          2015  1.379999e+08  3.481613e+08  
+          2           6.3          2015  1.012000e+08  2.716190e+08  
+          3           7.5          2015  1.839999e+08  1.902723e+09  
+          4           7.3          2015  1.747999e+08  1.385749e+09  
+          
+          [5 rows x 21 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 10866 entries, 0 to 10865
+Data columns (total 21 columns):
+id                      10866 non-null int64
+imdb\_id                 10856 non-null object
+popularity              10866 non-null float64
+budget                  10866 non-null int64
+revenue                 10866 non-null int64
+original\_title          10866 non-null object
+cast                    10790 non-null object
+homepage                2936 non-null object
+director                10822 non-null object
+tagline                 8042 non-null object
+keywords                9373 non-null object
+overview                10862 non-null object
+runtime                 10866 non-null int64
+genres                  10843 non-null object
+production\_companies    9836 non-null object
+release\_date            10866 non-null object
+vote\_count              10866 non-null int64
+vote\_average            10866 non-null float64
+release\_year            10866 non-null int64
+budget\_adj              10866 non-null float64
+revenue\_adj             10866 non-null float64
+dtypes: float64(4), int64(6), object(11)
+memory usage: 1.7+ MB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}105}]:}                   id    popularity        budget       revenue       runtime  \textbackslash{}
+          count   10866.000000  10866.000000  1.086600e+04  1.086600e+04  10866.000000   
+          mean    66064.177434      0.646441  1.462570e+07  3.982332e+07    102.070863   
+          std     92130.136561      1.000185  3.091321e+07  1.170035e+08     31.381405   
+          min         5.000000      0.000065  0.000000e+00  0.000000e+00      0.000000   
+          25\%     10596.250000      0.207583  0.000000e+00  0.000000e+00     90.000000   
+          50\%     20669.000000      0.383856  0.000000e+00  0.000000e+00     99.000000   
+          75\%     75610.000000      0.713817  1.500000e+07  2.400000e+07    111.000000   
+          max    417859.000000     32.985763  4.250000e+08  2.781506e+09    900.000000   
+          
+                   vote\_count  vote\_average  release\_year    budget\_adj   revenue\_adj  
+          count  10866.000000  10866.000000  10866.000000  1.086600e+04  1.086600e+04  
+          mean     217.389748      5.974922   2001.322658  1.755104e+07  5.136436e+07  
+          std      575.619058      0.935142     12.812941  3.430616e+07  1.446325e+08  
+          min       10.000000      1.500000   1960.000000  0.000000e+00  0.000000e+00  
+          25\%       17.000000      5.400000   1995.000000  0.000000e+00  0.000000e+00  
+          50\%       38.000000      6.000000   2006.000000  0.000000e+00  0.000000e+00  
+          75\%      145.750000      6.600000   2011.000000  2.085325e+07  3.369710e+07  
+          max     9767.000000      9.200000   2015.000000  4.250000e+08  2.827124e+09  
+\end{Verbatim}
+            
+    \begin{quote}
+\textbf{Tip}: You should \emph{not} perform too many operations in each
+cell. Create cells freely to explore your data. One option that you can
+take with this project is to do a lot of explorations in an initial
+notebook. These don't have to be organized, but make sure you use enough
+comments to understand the purpose of each code cell. Then, after you're
+done with your analysis, create a duplicate notebook where you will trim
+the excess and organize your steps so that you have a flowing, cohesive
+report.
+\end{quote}
+
+\begin{quote}
+\textbf{Tip}: Make sure that you keep your reader informed on the steps
+that you are taking in your investigation. Follow every code cell, or
+every set of related code cells, with a markdown cell to describe to the
+reader what was found in the preceding cell(s). Try to make it so that
+the reader can then understand what they will be seeing in the following
+cell(s).
+\end{quote}
+
+Observations: - For all the movies the vote\_count is not the same, thus
+it is difficult to conclude the popularity of the movie using this.
+Also, the unit of currency is not stated in the dataset, so I will take
+it as US dollars (most widely used)
+
+Data cleaning: - Delete unused columns: id, imdb\_id, popularity,
+budget\_adj, revenue\_adj, homepage, keywords, overview,
+production\_companies, vote\_count and vote\_average. - Remove any
+duplicate rows - Movies that have zero budget or revenue will be
+discarded - Replace zero in runtime column to NAN - Changing release
+date into standard date format - Reformating budget and revenue column
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Removing Unused column Delete: id, imdb\_id, popularity, budget\_adj,
+  revenue\_adj, homepage, keywords, overview, production\_companies,
+  vote\_count and vote\_average.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{delete}\PY{o}{=}\PY{p}{[} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{imdb\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{overview}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{my\PYZus{}data} \PY{o}{=} \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{delete}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}106}]:}       budget     revenue                original\_title  \textbackslash{}
+          0  150000000  1513528810                Jurassic World   
+          1  150000000   378436354            Mad Max: Fury Road   
+          2  110000000   295238201                     Insurgent   
+          3  200000000  2068178225  Star Wars: The Force Awakens   
+          4  190000000  1506249360                     Furious 7   
+          
+                                                          cast          director  \textbackslash{}
+          0  Chris Pratt|Bryce Dallas Howard|Irrfan Khan|Vi{\ldots}   Colin Trevorrow   
+          1  Tom Hardy|Charlize Theron|Hugh Keays-Byrne|Nic{\ldots}     George Miller   
+          2  Shailene Woodley|Theo James|Kate Winslet|Ansel{\ldots}  Robert Schwentke   
+          3  Harrison Ford|Mark Hamill|Carrie Fisher|Adam D{\ldots}       J.J. Abrams   
+          4  Vin Diesel|Paul Walker|Jason Statham|Michelle {\ldots}         James Wan   
+          
+                                   tagline  runtime  \textbackslash{}
+          0              The park is open.      124   
+          1             What a Lovely Day.      120   
+          2     One Choice Can Destroy You      119   
+          3  Every generation has a story.      136   
+          4            Vengeance Hits Home      137   
+          
+                                                genres release\_date  release\_year  
+          0  Action|Adventure|Science Fiction|Thriller       6/9/15          2015  
+          1  Action|Adventure|Science Fiction|Thriller      5/13/15          2015  
+          2         Adventure|Science Fiction|Thriller      3/18/15          2015  
+          3   Action|Adventure|Science Fiction|Fantasy     12/15/15          2015  
+          4                      Action|Crime|Thriller       4/1/15          2015  
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Removing duplicates
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{c+c1}{\PYZsh{}Entries we have}
+          \PY{n}{rows}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{shape}
+          \PY{n+nb}{print} \PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ total entries }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ number of columns}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{rows}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{col}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10865 total entries 10 number of columns
+
+    \end{Verbatim}
+
+    Remove duplicate rows.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{keep} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{first}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{rows}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{shape}
+          
+          \PY{n+nb}{print} \PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ total entries }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ number of columns}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{rows}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{col}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10864 total entries 10 number of columns
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Removing zero from budget and revenue
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{zero}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{my\PYZus{}data}\PY{p}{[}\PY{n}{zero}\PY{p}{]} \PY{o}{=} \PY{n}{my\PYZus{}data}\PY{p}{[}\PY{n}{zero}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{NAN}\PY{p}{)}
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset} \PY{o}{=} \PY{n}{zero}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{rows}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{shape}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{We have }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ number of movies left}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{rows}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+We have 3853 number of movies left
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Replacing zero with NAN in runtime
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{my\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{NAN}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Changing release date into standard date format
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{release\PYZus{}date} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:}         budget       revenue                original\_title  \textbackslash{}
+          0  150000000.0  1.513529e+09                Jurassic World   
+          1  150000000.0  3.784364e+08            Mad Max: Fury Road   
+          2  110000000.0  2.952382e+08                     Insurgent   
+          3  200000000.0  2.068178e+09  Star Wars: The Force Awakens   
+          4  190000000.0  1.506249e+09                     Furious 7   
+          
+                                                          cast          director  \textbackslash{}
+          0  Chris Pratt|Bryce Dallas Howard|Irrfan Khan|Vi{\ldots}   Colin Trevorrow   
+          1  Tom Hardy|Charlize Theron|Hugh Keays-Byrne|Nic{\ldots}     George Miller   
+          2  Shailene Woodley|Theo James|Kate Winslet|Ansel{\ldots}  Robert Schwentke   
+          3  Harrison Ford|Mark Hamill|Carrie Fisher|Adam D{\ldots}       J.J. Abrams   
+          4  Vin Diesel|Paul Walker|Jason Statham|Michelle {\ldots}         James Wan   
+          
+                                   tagline  runtime  \textbackslash{}
+          0              The park is open.      124   
+          1             What a Lovely Day.      120   
+          2     One Choice Can Destroy You      119   
+          3  Every generation has a story.      136   
+          4            Vengeance Hits Home      137   
+          
+                                                genres release\_date  release\_year  
+          0  Action|Adventure|Science Fiction|Thriller   2015-06-09          2015  
+          1  Action|Adventure|Science Fiction|Thriller   2015-05-13          2015  
+          2         Adventure|Science Fiction|Thriller   2015-03-18          2015  
+          3   Action|Adventure|Science Fiction|Fantasy   2015-12-15          2015  
+          4                      Action|Crime|Thriller   2015-04-01          2015  
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Reformating budget and revenue column
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{c+c1}{\PYZsh{}checking current format of column}
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} budget                   float64
+          revenue                  float64
+          original\_title            object
+          cast                      object
+          director                  object
+          tagline                   object
+          runtime                    int64
+          genres                    object
+          release\_date      datetime64[ns]
+          release\_year               int64
+          dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{c+c1}{\PYZsh{}changing data type of budget and revenue to interger}
+          \PY{n}{changet}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{my\PYZus{}data}\PY{p}{[}\PY{n}{changet}\PY{p}{]}\PY{o}{=}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{n}{changet}\PY{p}{]}\PY{o}{.}\PY{n}{applymap}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int64}\PY{p}{)}
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:} budget                     int64
+          revenue                    int64
+          original\_title            object
+          cast                      object
+          director                  object
+          tagline                   object
+          runtime                    int64
+          genres                    object
+          release\_date      datetime64[ns]
+          release\_year               int64
+          dtype: object
+\end{Verbatim}
+            
+     \#\# Exploratory Data Analysis
+
+\subsubsection{Research Question 1: The Average runtime of the
+movies}\label{research-question-1-the-average-runtime-of-the-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{k}{def} \PY{n+nf}{avgrun}\PY{p}{(}\PY{n}{column}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{my\PYZus{}data}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{n}{avgrun}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:} 109.22029060716139
+\end{Verbatim}
+            
+    Average runtime of a movie was 109 minutes or 1 hour 49 minutes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{c+c1}{\PYZsh{}histogram of runtime}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{dpi} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Runtime of the Movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nos.of Movies in the Dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}Name of the graph}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Runtime of all the movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{rwidth} \PY{o}{=} \PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{bins} \PY{o}{=}\PY{l+m+mi}{35}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Looking at the graph above we can see it is positively skewed. Majority
+of movies run for around 80 to 120 minutes.
+
+For a better visualisation of the runtime we will be using a Data Point
+Plot next.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{dpi} \PY{o}{=} \PY{l+m+mi}{105}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{swarmplot}\PY{p}{(}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{c+c1}{\PYZsh{}More information on runtime}
+          \PY{n}{my\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:} count    3854.000000
+          mean      109.220291
+          std        19.922820
+          min        15.000000
+          25\%        95.000000
+          50\%       106.000000
+          75\%       119.000000
+          max       338.000000
+          Name: runtime, dtype: float64
+\end{Verbatim}
+            
+    Looking at the plot we can clearly see where most runtime of movies are.
+There are a couple of outliers on either spectrum. Looking at the
+calculations as well the interquatile range for runtime were 95 minutes
+to 119 minutes, this is where the length of most movies are.
+
+    \subsubsection{Research Question 2 Movie release data and its
+profitability}\label{research-question-2-movie-release-data-and-its-profitability}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{c+c1}{\PYZsh{}Calculating profit of each movie}
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{profitearned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}119}]:}       budget     revenue  profitearned                original\_title  \textbackslash{}
+          0  150000000  1513528810    1363528810                Jurassic World   
+          1  150000000   378436354     228436354            Mad Max: Fury Road   
+          2  110000000   295238201     185238201                     Insurgent   
+          3  200000000  2068178225    1868178225  Star Wars: The Force Awakens   
+          4  190000000  1506249360    1316249360                     Furious 7   
+          
+                                                          cast          director  \textbackslash{}
+          0  Chris Pratt|Bryce Dallas Howard|Irrfan Khan|Vi{\ldots}   Colin Trevorrow   
+          1  Tom Hardy|Charlize Theron|Hugh Keays-Byrne|Nic{\ldots}     George Miller   
+          2  Shailene Woodley|Theo James|Kate Winslet|Ansel{\ldots}  Robert Schwentke   
+          3  Harrison Ford|Mark Hamill|Carrie Fisher|Adam D{\ldots}       J.J. Abrams   
+          4  Vin Diesel|Paul Walker|Jason Statham|Michelle {\ldots}         James Wan   
+          
+                                   tagline  runtime  \textbackslash{}
+          0              The park is open.      124   
+          1             What a Lovely Day.      120   
+          2     One Choice Can Destroy You      119   
+          3  Every generation has a story.      136   
+          4            Vengeance Hits Home      137   
+          
+                                                genres release\_date  release\_year  
+          0  Action|Adventure|Science Fiction|Thriller   2015-06-09          2015  
+          1  Action|Adventure|Science Fiction|Thriller   2015-05-13          2015  
+          2         Adventure|Science Fiction|Thriller   2015-03-18          2015  
+          3   Action|Adventure|Science Fiction|Fantasy   2015-12-15          2015  
+          4                      Action|Crime|Thriller   2015-04-01          2015  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{}Using a line plot for this analysis.}
+          \PY{c+c1}{\PYZsh{}Profit of movies for each year are summed up.}
+          \PY{n}{profitsy} \PY{o}{=} \PY{n}{my\PYZus{}data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{profitearned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{dpi} \PY{o}{=} \PY{l+m+mi}{130}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Movie release year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Movies profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Total Profits by all movies Vs Year of their release.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{profitsy}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{c+c1}{\PYZsh{}Year with most profit}
+          \PY{n}{profitsy}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}121}]:} 2015
+\end{Verbatim}
+            
+    Looking at the graph we can safely say the latest movies realeased are
+also the most profitable.
+
+     \#\# Conclusions
+
+After going through these 2 research questions we can say that on
+average movies are normally between 95 minutes to 119 minutes, as there
+are many movies at this length it may be due to the fact people do not
+too long of a movie as they might lose interest. Also, shorter movies
+have lesser time to build a good story and that is why we have tv shows
+around that length of 30 minutes to 60 minutes. Furthermore, from the
+release date and profit. We can see movies which have released later are
+more profitable, this may due to the fact that people in the past did
+not have many cinemas and no access to the internet thus, earlier
+released movies did not have a big market share. Although as we used all
+movies profits based on release date, another thing to keep in mind is
+there are many more movies made nowdays compared to the past which can
+skew the results. Limitations We are not very sure if the data provided
+is accurate or up to date. Also, the currency was not provided for the
+budget and revenue column as we took it as US Dollar it might have been
+different currencies as well. Furthermore, this dataset has been
+reuploaded many times due to issues with copyright and plus the name
+changes so there is a very high chance some details have been changed or
+deleted that could have disturbed the analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{k+kn}{from} \PY{n+nn}{subprocess} \PY{k}{import} \PY{n}{call}
+          \PY{n}{call}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nbconvert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Investigate\PYZus{}a\PYZus{}Dataset.ipynb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:} 0
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
